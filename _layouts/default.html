@@ -1,0 +1,568 @@
+<!-- CAM_Landing_page_7_1.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="favicon.png" type="image/png">
+    <style>
+        :root {
+            --primary: #2c003e;
+            --secondary: #ff2957; 
+            --accent: #e331b5;
+            --background: #120020;
+            --text: #ffffff;
+            --gradient: linear-gradient(135deg, #2c003e, #4a0072);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: var(--background);
+            color: var(--text);
+            font-family: 'SF Pro Display', -apple-system, sans-serif;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .hero {
+            background: var(--gradient);
+            padding: 80px 20px;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+            border-radius: 0 0 60px 60px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.1'/%3E%3C/svg%3E");
+            opacity: 0.2;
+            animation: backgroundShift 20s linear infinite;
+        }
+
+        .live-counter {
+            background: rgba(255,255,255,0.1);
+            padding: 12px 25px;
+            border-radius: 40px;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 30px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .pulse {
+            width: 12px;
+            height: 12px;
+            background: var(--accent);
+            border-radius: 50%;
+            animation: pulse 1.5s infinite;
+            box-shadow: 0 0 10px var(--accent);
+        }
+
+        .cta-button {
+            background: linear-gradient(45deg, var(--secondary), var(--accent));
+            color: white;
+            padding: 18px 45px;
+            border: none;
+            border-radius: 40px;
+            font-size: 20px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(255,41,87,0.4);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 15px 40px rgba(255,41,87,0.6);
+        }
+
+        .cta-button::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 400px;
+            height: 400px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .cta-button:hover::after {
+            transform: translate(-50%, -50%) scale(1.5);
+        }
+
+        .scarcity-banner {
+            background: rgba(255,41,87,0.1);
+            border-left: 4px solid var(--secondary);
+            padding: 20px 25px;
+            margin: 30px 0;
+            border-radius: 0 15px 15px 0;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            animation: glow 2s infinite;
+            backdrop-filter: blur(5px);
+        }
+
+        .timer-container {
+            background: rgba(255,255,255,0.05);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+            margin: 40px 0;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .timer-box {
+            display: inline-block;
+            padding: 20px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
+            border-radius: 15px;
+            min-width: 100px;
+            margin: 0 10px;
+            font-size: 28px;
+            font-weight: bold;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        .social-proof {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 25px;
+            margin: 50px 0;
+        }
+
+        .testimonial {
+            background: rgba(255,255,255,0.05);
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            max-width: 320px;
+            transition: all 0.4s;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .testimonial:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 35px;
+            margin: 50px 0;
+        }
+
+        .feature {
+            background: rgba(255,255,255,0.05);
+            padding: 35px;
+            border-radius: 20px;
+            text-align: center;
+            transition: all 0.4s;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .feature:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+            background: rgba(255,255,255,0.08);
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.8); opacity: 0.3; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        @keyframes glow {
+            0% { box-shadow: 0 0 5px var(--secondary); }
+            50% { box-shadow: 0 0 20px var(--secondary); }
+            100% { box-shadow: 0 0 5px var(--secondary); }
+        }
+
+        @keyframes backgroundShift {
+            0% { background-position: 0 0; }
+            100% { background-position: 100% 100%; }
+        }
+
+        .floating-users {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            background: rgba(255,255,255,0.1);
+            padding: 15px 30px;
+            border-radius: 40px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+            animation: floatInOut 0.6s ease-out;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        @keyframes floatInOut {
+            0% { transform: translateY(100%) scale(0.8); opacity: 0; }
+            100% { transform: translateY(0) scale(1); opacity: 1; }
+        }
+
+        .trust-badges {
+            display: flex;
+            justify-content: center;
+            gap: 35px;
+            margin: 50px 0;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            background: rgba(255,255,255,0.05);
+            padding: 15px 30px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.3s;
+        }
+
+        .badge:hover {
+            transform: translateY(-5px);
+            background: rgba(255,255,255,0.08);
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                padding: 60px 15px;
+            }
+
+            .cta-button {
+                padding: 15px 35px;
+                font-size: 18px;
+            }
+
+            .timer-box {
+                min-width: 80px;
+                padding: 15px;
+                font-size: 24px;
+                margin: 0 5px;
+            }
+        }
+
+        /* Sophisticated notification styles */
+        .notification-container { position: fixed; bottom: 20px; left: 20px; z-index: 1000; }
+        .notification { background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); padding: 15px 25px; border-radius: 8px; margin-bottom: 10px; transform: translateX(-120%); animation: slideIn 0.5s forwards; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); }
+        .notification.fade-out { animation: slideOut 0.5s forwards; }
+
+        /* Animation keyframes */
+        @keyframes slideIn { from { transform: translateX(-120%); } to { transform: translateX(0); } }
+        @keyframes slideOut { from { transform: translateX(0); } to { transform: translateX(-120%); } }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="hero">
+            <div class="live-counter">
+                <div class="pulse"></div>
+                <span id="activeUsers">2,547 people online now</span>
+            </div>
+            <h1>Premium Chat Experience - 100% Free</h1>
+            <p>Join thousands of users enjoying unlimited chat right now</p>
+            <!-- <button class="cta-button" id="mainCTA">Start Free Chat Now</button> -->
+            <a href="https://t.ajrkm.link/341157/4152?bo=2779,2778,2777,2776,2775&popUnder=true&aff_sub5=SF_006OG000004lmDN" style="text-decoration: none;">
+                <button class="cta-button" id="mainCTA">Start Free Chat Now</button>
+            </a>            
+            <p style="font-size: 0.9em; margin-top: 10px">No credit card required • Instant access</p>
+        </div>
+
+        <div class="scarcity-banner">
+            <span>🔥</span>
+            <div>
+                <strong>High Demand Alert:</strong> Only <span id="roomsLeft">7</span> chat rooms available in your area
+            </div>
+        </div>
+
+        <div class="timer-container">
+            <h3>Special Launch Offer Ends In:</h3>
+            <div class="timer-box" id="hours">02</div>
+            <div class="timer-box" id="minutes">45</div>
+            <div class="timer-box" id="seconds">33</div>
+        </div>
+
+        <div class="trust-badges">
+            <div class="badge">
+                <span>🔒</span>
+                <span>Secure & Private</span>
+            </div>
+            <div class="badge">
+                <span>⭐</span>
+                <span>4.9/5 Rating</span>
+            </div>
+            <div class="badge">
+                <span>👥</span>
+                <span>2M+ Users</span>
+            </div>
+        </div>
+
+        <div class="features">
+            <div class="feature">
+                <h3>HD Video Quality</h3>
+                <p>Crystal clear video chat experience</p>
+            </div>
+            <div class="feature">
+                <h3>No Registration</h3>
+                <p>Start chatting instantly</p>
+            </div>
+            <div class="feature">
+                <h3>24/7 Support</h3>
+                <p>We're always here to help</p>
+            </div>
+        </div>
+
+        <!-- Notification container added -->
+        <div class="notification-container" id="notificationContainer"></div>
+
+    </div>
+
+    <script>
+        // Dynamic user count
+        function updateActiveUsers() {
+            const baseUsers = 2547;
+            setInterval(() => {
+                const change = Math.floor(Math.random() * 21) - 10;
+                const users = baseUsers + change;
+                document.getElementById('activeUsers').textContent = 
+                    `${users.toLocaleString()} people online now`;
+            }, 3000);
+        }
+
+        // Countdown timer
+        function startCountdown() {
+            let hours = 2;
+            let minutes = 45;
+            let seconds = 33;
+
+            setInterval(() => {
+                seconds--;
+                if (seconds < 0) {
+                    seconds = 59;
+                    minutes--;
+                    if (minutes < 0) {
+                        minutes = 59;
+                        hours--;
+                        if (hours < 0) {
+                            hours = 2;
+                            minutes = 45;
+                            seconds = 33;
+                        }
+                    }
+                }
+                
+                document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+                document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+                document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+            }, 1000);
+        }
+
+        // Rooms availability
+        function updateRooms() {
+            let rooms = 7;
+            setInterval(() => {
+                if (Math.random() < 0.3 && rooms > 1) {
+                    rooms--;
+                    document.getElementById('roomsLeft').textContent = rooms;
+                }
+            }, 10000);
+        }
+
+        // Enhanced recent activity with sophisticated patterns
+        class ActivityManager {
+            constructor() {
+        this.names = [
+            'Sarah', 'Michael', 'Emma', 'James', 'Lisa', 'David', 'Olivia', 'John', 'Sophia', 'Daniel',
+            'Ava', 'Matthew', 'Emily', 'Ryan', 'Isabella', 'Joshua', 'Mia', 'Jacob', 'Amelia', 'Ethan',
+            'Charlotte', 'Noah', 'Abigail', 'Liam', 'Hannah', 'Alexander', 'Grace', 'Christopher', 'Victoria',
+            'Chloe', 'Benjamin', 'Ella', 'Mason', 'Elizabeth', 'Andrew', 'Natalie', 'Anthony', 'Samantha',
+            'Daniel', 'Zoe', 'Caleb', 'Madison', 'Elijah', 'Aria', 'Gabriel', 'Scarlett', 'Samuel', 'Lily',
+            'Logan', 'Aubrey', 'Christian', 'Ellie', 'Nathan', 'Stella', 'Aaron', 'Violet', 'Henry', 'Lillian',
+            'Jackson', 'Lucy', 'Jack', 'Paisley', 'Joseph', 'Audrey', 'Lucas', 'Evelyn', 'Dylan', 'Hazel',
+            'Adam', 'Claire', 'Aiden', 'Luna', 'Evan', 'Brooklyn', 'Jonathan', 'Savannah', 'Connor', 'Bella',
+            'Brandon', 'Layla', 'Tyler', 'Sophie', 'Cameron', 'Riley', 'Ethan', 'Maya', 'Sebastian', 'Alyssa',
+            'Julian', 'Harper', 'Levi', 'Penelope', 'Justin', 'Aurora', 'Nicholas', 'Elena', 'Jason', 'Naomi',
+            'Hunter', 'Faith', 'Zachary', 'Willow', 'Isaac', 'Kinsley', 'Kevin', 'Brianna', 'Austin', 'Sydney'
+        ];
+        this.cities = [
+            'New York City',
+            'London',
+            'Paris',
+            'Tokyo',
+            'Berlin',
+            'Los Angeles',
+            'Rome',
+            'Beijing',
+            'Dubai',
+            'Singapore',
+            'Sydney',
+            'Moscow',
+            'Madrid',
+            'Rio de Janeiro',
+            'Istanbul',
+            'Toronto',
+            'Bangkok',
+            'Hong Kong',
+            'Mumbai',
+            'São Paulo',
+            'Cairo',
+            'San Francisco',
+            'Amsterdam',
+            'Seoul',
+            'Buenos Aires',
+            'Kuala Lumpur',
+            'Barcelona',
+            'Lagos',
+            'Mexico City',
+            'Hanoi',
+            'Athens',
+            'Lisbon',
+            'Brisbane',
+            'Oslo',
+            'Stockholm',
+            'Budapest',
+            'Warsaw',
+            'Zurich',
+            'Vancouver',
+            'Dublin',
+            'Edinburgh',
+            'Bangalore',
+            'Lima',
+            'Santiago',
+            'Jakarta',
+            'Nairobi',
+            'Tunis',
+            'Valencia',
+            'Frankfurt',
+            'Phoenix',
+            'Philadelphia',
+            'Minneapolis',
+            'Las Vegas',
+            'Montreal',
+            'Charlotte',
+            'Gothenburg',
+            'Catania',
+            'Kraków',
+            'Helsinki',
+            'Tallinn'
+        ];
+                this.actions = ['just joined', 'upgraded to premium access', 'activated free trial', 'left a positive review', 'joined a private chat room', 'started a live show', 'joined a members-only live stream', 'invited friends', 'won a giveaway', 'completed their profile'];
+                this.timePatterns = ['just now', '2 minutes ago', '5 minutes ago', '15 minutes ago','7 minutes ago', '10 minutes ago', 'moments ago', 'a few seconds ago'];
+            }
+
+            generateActivity() {
+                const name = this.names[Math.floor(Math.random() * this.names.length)];
+                const city = this.cities[Math.floor(Math.random() * this.cities.length)];
+                const action = this.actions[Math.floor(Math.random() * this.actions.length)];
+                const time = this.timePatterns[Math.floor(Math.random() * this.timePatterns.length)];
+                
+                return { name, city, action, time };
+            }
+        }
+
+        // Notification system with psychological triggers
+        class NotificationSystem {
+            constructor() {
+                this.container = document.getElementById('notificationContainer');
+                this.activityManager = new ActivityManager();
+                this.activeNotifications = new Set();
+            }
+
+            createNotification(content) {
+                const notification = document.createElement('div');
+                notification.className = 'notification';
+                notification.innerHTML = content;
+
+                this.container.appendChild(notification);
+                this.activeNotifications.add(notification);
+
+                setTimeout(() => {
+                    notification.classList.add('fade-out');
+                    setTimeout(() => {
+                        this.container.removeChild(notification);
+                        this.activeNotifications.delete(notification);
+                    }, 500);
+                }, 4000);
+            }
+
+            showActivity() {
+                const activity = this.activityManager.generateActivity();
+                const content = `
+                    <div style="display: flex; align-items: center;">
+                        <div style="width: 30px; height: 30px; background: #ff6b6b; border-radius: 50%; margin-right: 10px;"></div>
+                        <div>
+                            <strong>${activity.name}</strong> from ${activity.city} ${activity.action}
+                            <small style="display: block; opacity: 0.7;">${activity.time}</small>
+                        </div>
+                    </div>
+                `;
+                this.createNotification(content);
+            }
+        }
+
+        // Initialize enhanced notification system
+        const notificationSystem = new NotificationSystem();
+
+        // Set up interval to show activity every 3 seconds
+        setInterval(() => notificationSystem.showActivity(), 3000);
+
+
+
+        // Initialize all functions
+        updateActiveUsers();
+        startCountdown();
+        updateRooms();
+
+        // Add click animation to CTA button
+        document.getElementById('mainCTA').addEventListener('click', function(e) {
+            this.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                this.style.transform = 'scale(1)';
+            }, 100);
+        });
+    </script>
+</body>
+</html>
